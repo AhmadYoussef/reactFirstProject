@@ -2,6 +2,7 @@
 import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
+import person from './Person/Person';
 
 
 class App extends Component{
@@ -15,15 +16,10 @@ class App extends Component{
     isGiveStyle: false,
     isShow: true
     }
-    changeName = (event)=>{
-        console.log(event.target)
-        this.setState({
-        Person:[
-            {name: event.target.value, age:34},
-            {name: 'lli', age:34},
-            {name: 'ase', age:39}
-        ]
-    })
+    changeName = (index,e)=>{
+        let Person = this.state.Person;
+        Person[index].name = e.target.value;    
+        this.setState({Person})
 } 
     changeStyle = ()=>{
         let styleBtn = this.state.styleBtn;
@@ -37,19 +33,24 @@ class App extends Component{
     ToggleHidden = () =>{
         this.setState({isShow : !this.state.isShow})
     }
+    // deletePerson = (index)=>{
+    //     let Person = this.state.Person;
+    //     Person.splice(index,1);
+    //     this.setState({Person});
+    // }
     render(){
     let persons = null;
     if(this.state.isShow){
      persons= <div>
         {this.state.Person.map((value,index)=>{
-            console.log(value);
             return <Person 
                     name={value.name} 
-                    // onclickHandler={this.changeName.bind(this, 'Ahmad')} 
+                    ko ={index}
                     key ={index}
                     changeHandler={this.changeName} 
                     style = {this.state.isGiveStyle ? this.state.styleBtn: {}}
                     age={value.age}
+                    // click={()=>{this.deletePerson(index)}}
                 /> 
         })}
         </div>

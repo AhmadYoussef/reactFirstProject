@@ -2,12 +2,11 @@ import React from 'react';
 import './Person.css';
 
 const person = (props)=>{
-    console.log(props);
     return(
-        <div className="person-card" style={props.style}>
+        <div className="person-card" style={props.style} onClick={props.click}>
             <h2 onClick={props.onclickHandler}>Name: {props.name}</h2>
             <h2>age: {Math.floor(Math.random()*2*props.age)}</h2>
-            <input onChange={props.changeHandler}  />
+            <input onChange={(e)=>{props.changeHandler(props.ko,e)}}  />
             <h2>{props.children}</h2>
         </div>
     );
