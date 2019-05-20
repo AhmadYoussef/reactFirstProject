@@ -1,13 +1,11 @@
-
 import React, {Component} from 'react';
 import './App.css';
 import Person from './Person/Person';
-import person from './Person/Person';
 
 
 class App extends Component{
   state={
-    Person:[
+    data:[
         {name: 'gega', age:34},
         {name: 'sda', age:32},
         {name: 'gonz', age:39}
@@ -17,10 +15,10 @@ class App extends Component{
     isShow: true
     }
     changeName = (index,e)=>{
-        let Person = this.state.Person;
-        Person[index].name = e.target.value;    
-        this.setState({Person})
-} 
+        let data = this.state.data;
+        data[index].name = e.target.value;    
+        this.setState({data})
+    } 
     changeStyle = ()=>{
         let styleBtn = this.state.styleBtn;
         styleBtn = {backgroundColor: 'blue',
@@ -33,24 +31,23 @@ class App extends Component{
     ToggleHidden = () =>{
         this.setState({isShow : !this.state.isShow})
     }
-    // deletePerson = (index)=>{
-    //     let Person = this.state.Person;
-    //     Person.splice(index,1);
-    //     this.setState({Person});
-    // }
+    deletePerson = (index)=>{
+        let data = this.state.data;
+        data.splice(index,1);
+        this.setState({data});
+    }
     render(){
-    let persons = null;
+    let personsComponent = null;
     if(this.state.isShow){
-     persons= <div>
-        {this.state.Person.map((value,index)=>{
+        personsComponent= <div>
+        {this.state.data.map((value,index)=>{
             return <Person 
                     name={value.name} 
-                    ko ={index}
-                    key ={index}
+                    ke ={index}
                     changeHandler={this.changeName} 
                     style = {this.state.isGiveStyle ? this.state.styleBtn: {}}
                     age={value.age}
-                    // click={()=>{this.deletePerson(index)}}
+                    click={()=>{this.deletePerson(index)}}
                 /> 
         })}
         </div>
@@ -60,7 +57,7 @@ class App extends Component{
             <button onClick={this.changeStyle} style= {this.state.styleBtn}>click</button>
             <button onClick={this.ToggleStyle} style= {this.state.styleBtn}>Toggle</button>
             <button onClick={this.ToggleHidden} style= {this.state.styleBtn}>Toggle</button>
-            {persons}
+            {personsComponent}
         </div>
         );
     }
